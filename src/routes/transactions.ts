@@ -4,8 +4,18 @@ import z from 'zod'
 import { knex } from '../database'
 
 export async function transactionsRoutes(app: FastifyInstance) {
-  app.get('/', async () => {
-    const transactions = await knex('transactions').select()
+  app.get('/', async (request, reply) => {
+    const sessionId = request.cookies.sessionId
+
+    if (!sessionId) {
+      return reply.status(401).send({
+        error: 'Unauthorized',
+      })
+    }
+
+    const transactions = await knex('transactions')
+      .where('session_id', sessionId)
+      .select()
     return { transactions }
   })
 
