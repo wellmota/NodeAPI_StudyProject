@@ -1,9 +1,27 @@
-import { expect, test } from 'vitest'
+import { randomUUID } from 'crypto'
+import { afterAll, beforeAll, test } from 'vitest'
 
-test('user can create new transactions', () => {
-  //make the http request
+import request from 'supertest'
+import { app } from '../src/app'
 
-  const responseStatusCode = 201
+beforeAll(async () => {
+  await app.ready()
+})
 
-  expect(responseStatusCode).toEqual(201)
+afterAll(async () => {
+  await app.close()
+})
+
+test('user can create new transactions', async () => {
+  const sessionId = randomUUID()
+
+  await request(app.server)
+    .post('/transactions')
+    .set('Cookie', [`sessionId=${sessionId}`])
+    .send({
+      title: 'New Transaction',
+      amount: 5000,
+      type: 'credit',
+    })
+    .expect(201)
 })
