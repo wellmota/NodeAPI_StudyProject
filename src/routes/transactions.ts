@@ -75,12 +75,13 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
     if (!sessionId) {
       sessionId = randomUUID()
-
-      reply.cookie('sessionId', sessionId, {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7, //7 days
-      })
     }
+
+    // Always refresh / set the cookie so client receives Set-Cookie header
+    reply.cookie('sessionId', sessionId, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    })
 
     await knex('transactions').insert({
       id: randomUUID(),
