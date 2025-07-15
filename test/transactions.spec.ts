@@ -3,7 +3,9 @@ import { randomUUID } from 'crypto'
 process.env.DATABASE_URL = process.env.DATABASE_URL ?? './test.db'
 process.env.NODE_ENV = 'test'
 
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { execSync } from 'node:child_process'
+
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 
 import request from 'supertest'
 import { app } from '../src/app'
@@ -11,6 +13,7 @@ import { knex } from '../src/database'
 
 describe('transactions routes', () => {
   beforeAll(async () => {
+    
     // Run all pending migrations before the application is ready
     await knex.migrate.latest()
     await app.ready()
@@ -21,6 +24,7 @@ describe('transactions routes', () => {
     // Destroy the database connection after tests finish
     await knex.destroy()
   })
+
 
   it('should be able to create a new transaction', async () => {
     const sessionId = randomUUID()
