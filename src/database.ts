@@ -14,7 +14,11 @@ export const config: Knex.Config = {
   },
   pool: {
     afterCreate: (conn: any, cb: Function) => {
-      conn.run('PRAGMA foreign_keys = ON', cb)
+      if (env.DATABASE_CLIENT === 'sqlite') {
+        conn.run('PRAGMA foreign_keys = ON', cb)
+      } else {
+        cb()
+      }
     },
   },
 }
