@@ -3,7 +3,10 @@ import fastify from 'fastify'
 
 import { transactionsRoutes } from './routes/transactions'
 
-export const app = fastify()
+export const app = fastify({
+  logger: true,
+  trustProxy: true,
+})
 
 app.register(cookie)
 
