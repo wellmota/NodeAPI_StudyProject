@@ -13,6 +13,8 @@ export const config: Knex.Config = {
     directory: './db/migrations',
   },
   pool: {
+    min: 2,
+    max: 10,
     afterCreate: (conn: any, cb: Function) => {
       if (env.DATABASE_CLIENT === 'sqlite') {
         conn.run('PRAGMA foreign_keys = ON', cb)

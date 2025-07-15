@@ -2,9 +2,9 @@
   "name": "node-api-study-project",
   "version": "1.0.0",
   "description": "A Node.js API study project with TypeScript and database support",
-  "main": "dist/index.js",
+  "main": "build/server.js",
   "engines": {
-    "node": ">=23.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsup src --out-dir build",
@@ -43,8 +43,6 @@
     "supertest": "^7.1.3",
     "ts-node": "^10.0.0",
     "ts-node-dev": "^2.0.0",
-    "tsup": "^8.5.0",
-    "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   },
@@ -52,12 +50,13 @@
     "@fastify/cookie": "^11.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
-    "express": "^4.18.0",
     "fastify": "^5.4.0",
     "helmet": "^7.0.0",
     "knex": "^3.1.0",
     "pg": "^8.16.3",
     "sqlite3": "^5.1.7",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3",
     "zod": "^4.0.5"
   },
   "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b"

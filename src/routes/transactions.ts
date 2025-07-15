@@ -11,12 +11,17 @@ export async function transactionsRoutes(app: FastifyInstance) {
       preHandler: [checkSessionIdExist],
     },
     async (request, reply) => {
-      const { sessionId } = request.cookies
+      try {
+        const { sessionId } = request.cookies
 
-      const transactions = await knex('transactions')
-        .where('session_id', sessionId)
-        .select()
-      return { transactions }
+        const transactions = await knex('transactions')
+          .where('session_id', sessionId)
+          .select()
+        return { transactions }
+      } catch (error) {
+        request.log.error(error)
+        return reply.status(500).send({ error: 'Failed to fetch transactions' })
+      }
     }
   )
 
