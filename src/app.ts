@@ -7,6 +7,11 @@ export const app = fastify()
 
 app.register(cookie)
 
+// Health check endpoint
+app.get('/health', async () => {
+  return { status: 'ok', timestamp: new Date().toISOString() }
+})
+
 app.register(transactionsRoutes, {
   prefix: 'transactions',
 })

@@ -25,4 +25,14 @@ export const config: Knex.Config = {
 
 const knex = setupKnex(config)
 
+// Test database connection
+knex
+  .raw('SELECT 1')
+  .then(() => {
+    console.log('Database connection successful')
+  })
+  .catch((error) => {
+    console.error('Database connection failed:', error)
+  })
+
 export { knex }
